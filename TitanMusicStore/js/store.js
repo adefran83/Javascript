@@ -22,3 +22,4 @@ function getAllCategories() {
 	// do stuff to retrieve all categories
 	return results;
 }
+:
