@@ -22,4 +22,7 @@ function getAllCategories() {
 	// do stuff to retrieve all categories
 	return results;
 }
-:
+function init () {
+ //load functions with the form
+ }
+ window.onload = init;
