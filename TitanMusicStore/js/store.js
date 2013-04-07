@@ -1,6 +1,7 @@
-function getAlbumsByArtist (artistId) {
-	var artistIdInput = document.getElementById('artistIdInput').value;
-	alert(artistId[artistIdInput].id);
+function getAlbumsByArtist () {
+	'use strict';
+var artistId = document.getElementById('artistIdInput');
+	document.getElementById('hello').value = artistId;
 	return false;
 }
 function getAlbumsByCategory (categoryId) {
@@ -24,8 +25,7 @@ function init () {
  	document.getElementById('inputForm').onsubmit = getAlbumsByArtist;
  }
  window.onload = init;
-
-var artistId = [
+var artistList = [
 	{id:1,
 	title: 'Title 1',
 	artist: 'Artist 1',
