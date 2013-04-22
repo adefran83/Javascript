@@ -35,11 +35,19 @@ function getAlbumsByCategory (categoryId) {
 }
 function getAllAlbums () {
 	'use strict';
-	var text = '';
+	var resultArray = [];
+	var output = document.getElementById('output');
+	var result = '<h3>Results</h3>';
 	for (var i = 0; i < artistList.length; i++) {
-		text = text + artistList[i].title + ' ';
+		if(artistList[i].quantity > 0){
+			resultArray.push(artistList[i].title);
+		}
 	}
-	alert('Albums: ' + text);
+	resultArray.sort();
+	for (var p = 0; p < resultArray.length;p++) {
+		result += '<input type="checkbox" name="result" value="' + resultArray[p] + '"/>' + resultArray[p] + '</br>';
+	}	
+	output.innerHTML = result;
 	return false;
 }
 function getAllCategories() {
@@ -67,7 +75,7 @@ function getAllCategories() {
 	price: '9.99',
 	category: 'classic',
 	releaseDate: '1/1/2013',
-	quantity: 10,
+	quantity: 0,
 	tracks: ['song 1','song 2','song 3','song 4','song 5']
 	};
 var artist2 =
@@ -77,7 +85,7 @@ var artist2 =
 	price: '9.99',
 	category: 'rock',
 	releaseDate: '2/2/2013',
-	quantity: 10,
+	quantity: 0,
 	tracks: ['song 1','song 2','song 3','song 4','song 5']
 	};
 var artist3 =	
@@ -110,5 +118,35 @@ var artist5=
 	quantity: 10,
 	tracks: ['song 1','song 2','song 3','song 4','song 5']
 	};
- var artistList = [artist1,artist2,artist3,artist4,artist5];
+var artist6=	
+	{id:6,
+	title: 'Moving Pictures',
+	artist: 'Rush',
+	price: '9.99',
+	category: 'rock',
+	releaseDate: '5/5/1980',
+	quantity: 3,
+	tracks: ['song 1','song 2','song 3','song 4','song 5']
+	};
+ var artist7=	
+	{id:7,
+	title: 'Gold',
+	artist: 'Rush',
+	price: '9.99',
+	category: 'rock',
+	releaseDate: '5/5/2013',
+	quantity: 1,
+	tracks: ['song 1','song 2','song 3','song 4','song 5']
+	};
+var artist8=	
+	{id:8,
+	title: 'Greatist Hits 1970-1978',
+	artist: 'Black Sabbath',
+	price: '9.99',
+	category: 'rock',
+	releaseDate: '5/5/2013',
+	quantity: 6,
+	tracks: ['song 1','song 2','song 3','song 4','song 5']
+	};
+var artistList = [artist1,artist2,artist3,artist4,artist5,artist6, artist7,artist8];
  var categories = [{id:1,category:'rock'},{id:2,category:'pop'},{id:3,category:'rap'},{id:4,category:'classic'},{id:5,category:'metal'}];
