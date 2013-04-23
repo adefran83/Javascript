@@ -1,17 +1,34 @@
 function getAlbumsByArtist () {
 	'use strict';
+	var resultArray = [];
+	var output = document.getElementById('output');
+	var result = '';
 	var artistId = document.getElementById('artistIdInput').value;
-	if (artistId >= 1 && artistId <= 5) {
-		artistId = artistList[artistId - 1];
-		alert('Album: '+  artistId.title);
-	} else {
-		alert('Please enter a valid ID');
+	if (artistId >= 1 && artistId <= 8) {
+		artistId = artistId -1;
+		resultArray.push(artistList[artistId].title);
 	}
+	if (resultArray.length == 0)
+	{
+		result = 'Please enter a valid ID. A number 1-8';
+	} else {
+		result = '<h5>Albums from artist ID ' + (artistId + 1) + ' are:</h5>';
+		resultArray.sort();
+		for (var i = 0; i < resultArray.length;i++)
+		{
+			result += '<input type="checkbox" name="result" value="' + resultArray[i] + '"/>' + resultArray[i] + '</br>';
+		}
+		result+='<input type="submit" id="submit" value="Add to Cart">';
+	}
+	output.innerHTML = result;
+	U.addEvent(U.$('cart').onsubmit = addToCart);
 	return false;
 }
 function getAlbumsByCategory (categoryId) {
 	var category = U.$('categoryInput').value;
-	var alertText='';
+	var resultArray = [];
+	var output = document.getElementById('output');
+	var result = '';
 	for (var i = 0;i < categories.length;i++)
 	{
 		if (category == categories[i].category)
@@ -20,24 +37,32 @@ function getAlbumsByCategory (categoryId) {
 			{
 				if (categories[i].category == artistList[p].category)
 				{
-					alertText = alertText + artistList[p].title + ' ';
+					resultArray.push(artistList[p].title);
 				}
 			}
 		}
 	}
-	if (alertText=='')
+	if (resultArray.length == 0)
 	{
-		alert('Please enter a valid category');
+		result = 'Please enter a valid category';
 	} else {
-		alert('Albums from category ' + category + ' are : ' + alertText);
+		result = '<h5>Albums from category ' + category + ' are:</h5>';
+		resultArray.sort();
+		for (var i = 0; i < resultArray.length;i++)
+		{
+			result += '<input type="checkbox" name="result" value="' + resultArray[i] + '"/>' + resultArray[i] + '</br>';
+		}
+		result += '<input type="submit" id="submit" value="Add to Cart">';
 	}
+	output.innerHTML = result;
+	U.addEvent(U.$('cart').onsubmit = addToCart);
 	return false;
 }
 function getAllAlbums () {
 	'use strict';
 	var resultArray = [];
 	var output = document.getElementById('output');
-	var result = '<h3>Results</h3>';
+	var result = '<h5>Results</h5>';
 	for (var i = 0; i < artistList.length; i++) {
 		if(artistList[i].quantity > 0){
 			resultArray.push(artistList[i].title);
@@ -46,17 +71,31 @@ function getAllAlbums () {
 	resultArray.sort();
 	for (var p = 0; p < resultArray.length;p++) {
 		result += '<input type="checkbox" name="result" value="' + resultArray[p] + '"/>' + resultArray[p] + '</br>';
-	}	
+	}
+	result += '<input type="submit" id="submit" value="Add to Cart">';
 	output.innerHTML = result;
+	U.addEvent(U.$('cart').onsubmit = addToCart);
 	return false;
 }
 function getAllCategories() {
 	'use strict';
-	var text = '';
+	var output = document.getElementById('output');
+	var result = '<h5>Results</h5><dl>';
 	for (var i = 0; i < categories.length; i++) {
-		text = text + categories[i].category + ', ';
+		result += '<dt>'+ categories[i].category +'</dt>';
+		for(var p = 0; p < artistList.length; p++)
+		{
+			if(artistList[p].category == categories[i].category)
+			{
+				if(artistList[p].quantity > 0){
+					result += '<dd><input type="checkbox" name="result" value="' + artistList[p].title + '"/>' + artistList[p].title + '</dd>';
+				}
+			}
+		}
 	}
-	alert('Categories: ' + text);
+	result += '</dl><input type="submit" id="submit" value="Add to Cart">';
+	output.innerHTML = result;
+	U.addEvent(U.$('cart').onsubmit = addToCart);
 	return false;
 }
 

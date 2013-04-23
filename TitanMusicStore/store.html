@@ -9,6 +9,7 @@
 </head>
 <body>
 	<h1>This is the Titan Music Store</h1>
+	<div align="right" id="cartText"></div>
 	<form id="inputForm">
 	<div><label for="artistIdLabel">Artist ID</label><input type="text" name="artistIdInput" id="artistIdInput" required></div>
 	<div><input type="submit" value="Search" id="submit"></div>
@@ -16,7 +17,7 @@
 <form id="allAlbums">
 	<div>
 		<input type="submit" value="Show all albums" id="submit"></div>
-	<div id="output"></div>
+	
 
 </form>
 <form id="allCategories"><div><input type="submit" value="Show all categories" id="submit"></div></form>
@@ -24,6 +25,10 @@
 	<div><label for="category">Category</label><input type="text" name="category" id="categoryInput" required></div>
 	<div><input type="submit" id="submit" value="Search"></div>
 </form>
+<form id= "cart">
+	<div id="output"></div>
+</form>
+	<script src="js/cart.js"></script>
 	<script src="js/store.js"></script>
 	<script src="js/utilities.js"></script>
 </body
