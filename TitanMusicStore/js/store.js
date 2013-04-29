@@ -5,8 +5,8 @@ function getAlbumsByArtist () {
 	var result = '';
 	var artistId = document.getElementById('artistIdInput').value;
 	if (artistId >= 1 && artistId <= 8) {
-		artistId = artistId -1;
-		resultArray.push(artistList[artistId].title);
+	    artistId = artistId - 1;
+	    resultArray.push({artist:artistList[artistId].artist, album: artistList[artistId].title,price:artistList[artistId].price, quantity: 1 });
 	}
 	if (resultArray.length == 0)
 	{
@@ -16,7 +16,7 @@ function getAlbumsByArtist () {
 		resultArray.sort();
 		for (var i = 0; i < resultArray.length;i++)
 		{
-			result += '<input type="checkbox" name="result" value="' + resultArray[i] + '"/>' + resultArray[i] + '</br>';
+		    result += '<input type="checkbox" name="result"  value="' + resultArray[i].album + ' By ' + resultArray[i].artist + '"/>' + resultArray[i].album + ' By ' + resultArray[i].artist + '</br>';
 		}
 		result+='<input type="submit" id="submit" value="Add to Cart">';
 	}
@@ -37,7 +37,7 @@ function getAlbumsByCategory (categoryId) {
 			{
 				if (categories[i].category == artistList[p].category)
 				{
-					resultArray.push(artistList[p].title);
+				    resultArray.push({ artist: artistList[p].artist, album: artistList[p].title, price:artistList[p].price, quantity: 1 });
 				}
 			}
 		}
@@ -50,7 +50,7 @@ function getAlbumsByCategory (categoryId) {
 		resultArray.sort();
 		for (var i = 0; i < resultArray.length;i++)
 		{
-			result += '<input type="checkbox" name="result" value="' + resultArray[i] + '"/>' + resultArray[i] + '</br>';
+		    result += '<input type="checkbox" name="'+resultArray[i].price+'" value="' + resultArray[i].album + ' By ' + resultArray[i].artist + '"/>' + resultArray[i].album + ' By ' + resultArray[i].artist + '</br>';
 		}
 		result += '<input type="submit" id="submit" value="Add to Cart">';
 	}
@@ -65,12 +65,12 @@ function getAllAlbums () {
 	var result = '<h5>Results</h5>';
 	for (var i = 0; i < artistList.length; i++) {
 		if(artistList[i].quantity > 0){
-			resultArray.push(artistList[i].title);
+		    resultArray.push({ artist: artistList[i].artist, album: artistList[i].title, price: artistList[i].price, quantity: 1 });
 		}
 	}
 	resultArray.sort();
 	for (var p = 0; p < resultArray.length;p++) {
-		result += '<input type="checkbox" name="result" value="' + resultArray[p] + '"/>' + resultArray[p] + '</br>';
+	    result += '<input type="checkbox" name="' + resultArray[p].price + '" value="' + resultArray[p].album + ' By ' + resultArray[p].artist + '"/>' + resultArray[p].album + ' By ' + resultArray[p].artist + '</br>';
 	}
 	result += '<input type="submit" id="submit" value="Add to Cart">';
 	output.innerHTML = result;
@@ -78,7 +78,8 @@ function getAllAlbums () {
 	return false;
 }
 function getAllCategories() {
-	'use strict';
+    'use strict';
+    var resultArray = [];
 	var output = document.getElementById('output');
 	var result = '<h5>Results</h5><dl>';
 	for (var i = 0; i < categories.length; i++) {
@@ -87,8 +88,9 @@ function getAllCategories() {
 		{
 			if(artistList[p].category == categories[i].category)
 			{
-				if(artistList[p].quantity > 0){
-					result += '<dd><input type="checkbox" name="result" value="' + artistList[p].title + '"/>' + artistList[p].title + '</dd>';
+			    if (artistList[p].quantity > 0) {
+			        resultArray.push({ artist: artistList[p].artist, album: artistList[p].title, price:artistList[p].price, quantity: 1 });
+			        result += '<dd><input type="checkbox" name="' + resultArray[i].price + '" value="' + artistList[p].title + ' By ' + artistList[p].artist + '"/>' + artistList[p].title + ' By ' + artistList[p].artist + '</dd>';
 				}
 			}
 		}
@@ -105,13 +107,20 @@ function getAllCategories() {
 	U.addEvent(U.$('inputForm').onsubmit = getAlbumsByArtist);
 	U.addEvent(U.$('allCategories').onsubmit = getAllCategories);
 	U.addEvent(U.$('albumsByCategory').onsubmit = getAlbumsByCategory);
+	//var cookie = COOKIE.getCookie('loginCookie');
+	if (COOKIE.getCookie('loginCookie')) {
+	    alert('test');
+	}
+    //else {
+	//    window.location = "login.html";
+	//}
  }
  
  var artist1 = 
 	{id:1,
 	title: 'Title 1',
 	artist: 'Artist 1',
-	price: '9.99',
+	price: 9.99,
 	category: 'classic',
 	releaseDate: '1/1/2013',
 	quantity: 0,
@@ -121,7 +130,7 @@ var artist2 =
 	{id:2,
 	title: 'Title 2',
 	artist: 'Artist 2',
-	price: '9.99',
+	price: 9.99,
 	category: 'rock',
 	releaseDate: '2/2/2013',
 	quantity: 0,
@@ -131,7 +140,7 @@ var artist3 =
 	{id:3,
 	title: 'Title 3',
 	artist: 'Artist 3',
-	price: '9.99',
+	price: 9.99,
 	category: 'rap',
 	releaseDate: '3/3/2013',
 	quantity: 10,
@@ -141,7 +150,7 @@ var artist4 =
 	{id:4,
 	title: 'Title 4',
 	artist: 'Artist 4',
-	price: '9.99',
+	price: 9.99,
 	category: 'classic',
 	releaseDate: '4/4/2013',
 	quantity: 10,
@@ -151,7 +160,7 @@ var artist5=
 	{id:5,
 	title: 'Title 5',
 	artist: 'Artist 5',
-	price: '9.99',
+	price: 9.99,
 	category: 'rock',
 	releaseDate: '5/5/2013',
 	quantity: 10,
@@ -161,7 +170,7 @@ var artist6=
 	{id:6,
 	title: 'Moving Pictures',
 	artist: 'Rush',
-	price: '9.99',
+	price: 9.99,
 	category: 'rock',
 	releaseDate: '5/5/1980',
 	quantity: 3,
@@ -171,7 +180,7 @@ var artist6=
 	{id:7,
 	title: 'Gold',
 	artist: 'Rush',
-	price: '9.99',
+	price: 9.99,
 	category: 'rock',
 	releaseDate: '5/5/2013',
 	quantity: 1,
@@ -179,9 +188,9 @@ var artist6=
 	};
 var artist8=	
 	{id:8,
-	title: 'Greatist Hits 1970-1978',
+	title: 'Greatest Hits 1970-1978',
 	artist: 'Black Sabbath',
-	price: '9.99',
+	price: 9.99,
 	category: 'rock',
 	releaseDate: '5/5/2013',
 	quantity: 6,
